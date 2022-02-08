@@ -1,0 +1,17 @@
+import { LightningElement,track,wire } from 'lwc';
+import getAcc from '@salesforce/apex/AccountController.getAcc';
+export default class ChildComp extends LightningElement 
+{
+ @wire(getAcc,{})
+ accData;
+ @track getAccId;
+ handleChangeRadio(event)
+ {
+     this.getAccId  = event.target.value;
+     console.log('getAccId -->'+this.getAccId);
+     const  myCustomEventItem = new CustomEvent('myeventdemo',{
+         detail : this.getAccId
+     });
+     this.dispatchEvent(myCustomEventItem);
+ }
+}
